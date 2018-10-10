@@ -1,16 +1,19 @@
-version: '3'
+version: "3"
 services:
-  web:
-    build: .
+  app:
+    build: ./app
+    links:
+      - db
     ports:
-     - "80:80"
-  redis:
-    image: "redis:alpine"
-  neo4j:
-    image: neo4j:3.0
-    ports:
-      - "7474:7474"
-      - "7687:7687"
+      - "5000:5000"
+
+  db:
+    image: mariadb:10.3
+    container_name: mariadb
     volumes:
-      - $HOME/neo4j/data:/data
-      - $HOME/neo4j/logs:/logs
+      - ./db:/docker-entrypoint-initdb.d/:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: editx
+    ports:
+      - "3306:3306"
