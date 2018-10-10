@@ -1,12 +1,5 @@
 version: "3"
 services:
-  app:
-    build: ./app
-    links:
-      - db
-    ports:
-      - "5000:5000"
-
   db:
     image: mariadb:10.3
     container_name: mariadb
@@ -17,3 +10,10 @@ services:
       MYSQL_DATABASE: editx
     ports:
       - "3306:3306"
+
+  app:
+    build: ./app
+    links:
+      - db
+    ports:
+      - "5000:5000"
