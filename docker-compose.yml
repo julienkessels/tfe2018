@@ -1,4 +1,7 @@
 version: "3"
+networks:
+  net:
+
 services:
   db:
     image: mariadb:10.3
@@ -10,10 +13,29 @@ services:
       MYSQL_DATABASE: editx
     ports:
       - "3306:3306"
+    restart: always
+    networks:
+      - net
+
+  neo4j:
+    image: neo4j:3.0
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - $HOME/neo4j/data:/data
+      - $HOME/neo4j/logs:/logs
+    restart: always
+    networks:
+      - net
 
   app:
     build: ./app
     links:
       - db
+      - neo4j
     ports:
       - "5000:5000"
+    restart: always
+    networks:
+      - net
