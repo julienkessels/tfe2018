@@ -3,7 +3,8 @@ extern_config = {
     'password': 'root',
     'host': 'db',
     'port': '3306',
-    'database': 'editx'
+    'database': 'editx',
+    'charset': 'utf8'
 }
 
 local_config = {
@@ -11,5 +12,7 @@ local_config = {
  'user':"root",
  'passwd':"root",
  'database':"blabla",
- 'port':'8889'
+ 'port':'8889',
+ 'charset': 'utf8'
+
 }
